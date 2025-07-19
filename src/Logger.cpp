@@ -78,18 +78,18 @@ void kod::Logger::logHandler()
 std::string kod::Logger::getSeverityString(kod::Logger::LogSeverity lvl)
 {
 	switch (lvl) {
-	case LogSeverity::LINFO:
-		return "INFO";
-	case LogSeverity::LWARNING:
-		return "WARNING";
-	case LogSeverity::LERROR:
-		return "ERROR";
-	case LogSeverity::LFATAL:
-		return "FATAL";
-	case LogSeverity::LDEBUG:
-		return "DEBUG";
-	default:
-		return "INVALID";
+		case LogSeverity::LINFO:
+			return "INFO";
+		case LogSeverity::LWARNING:
+			return "WARNING";
+		case LogSeverity::LERROR:
+			return "ERROR";
+		case LogSeverity::LFATAL:
+			return "FATAL";
+		case LogSeverity::LDEBUG:
+			return "DEBUG";
+		default:
+			return "INVALID";
 	}
 }
 
@@ -111,7 +111,7 @@ std::string kod::Logger::getCurrentTime()
 
 	std::stringstream ss;
 	ss << std::put_time(&timeInfo, "%Y:%d %I:%M:%S") << "." << std::setfill('0') << std::setw(3)
-		<< fractional_seconds.count();
+	   << fractional_seconds.count();
 	return ss.str();
 }
 
@@ -125,26 +125,26 @@ std::string kod::Logger::getCurrentThreadID()
 std::string kod::Logger::formatFileName(const std::string& file)
 {
 	const size_t threeDotsSize = 3;
-	size_t fileNameMaxCharacter = std::max(static_cast<size_t>(0), static_cast<size_t>(m_fileNameMaxCharacter - threeDotsSize));
+	size_t fileNameMaxCharacter =
+	    std::max(static_cast<size_t>(0), static_cast<size_t>(m_fileNameMaxCharacter - threeDotsSize));
 
 	std::cout << file.length() << ":" << fileNameMaxCharacter << std::endl;
 	if (static_cast<size_t>(file.length()) > fileNameMaxCharacter) {
 		return "..." + file.substr(file.length() - fileNameMaxCharacter);
-	}
-	else {
+	} else {
 		return file + std::string(fileNameMaxCharacter - file.length(), ' ');
 	}
 }
 
 std::string kod::Logger::prepareLogMessage(kod::Logger::LogSeverity lvl, const std::string& message,
-	const std::string& file, uint_least32_t line)
+                                           const std::string& file, uint_least32_t line)
 {
 	std::stringstream ss;
 	ss << std::setw(10) << getCurrentTime() << " | ";
 	ss << std::setw(6) << std::left << getCurrentThreadID() << " |";
 	ss << std::setw(8) << std::left << getSeverityString(lvl) << " | ";
-	ss << std::setw(static_cast<std::streamsize>(m_fileNameMaxCharacter)) << std::left << formatFileName(file) << ":" << std::setw(5) << line
-		<< " | ";
+	ss << std::setw(static_cast<std::streamsize>(m_fileNameMaxCharacter)) << std::left << formatFileName(file) << ":"
+	   << std::setw(5) << line << " | ";
 	ss << message;
 	return ss.str();
 }
