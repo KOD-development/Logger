@@ -11,23 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🛎️ Checkout code
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: 🛠️ Install dependencies
+    - name: Install dependencies
       run: |
         sudo apt update
         sudo apt install -y cmake g++ ninja-build
 
-    - name: ⚙️ Configure CMake
+    - name: Configure CMake
       run: |
         cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 
-    - name: 🔨 Build
+    - name: Build
       run: |
         cmake --build build
 
-    - name: ✅ Run tests
+    - name: Run tests
       run: |
         cd build
         ctest --output-on-failure
