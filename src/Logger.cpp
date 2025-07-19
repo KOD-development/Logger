@@ -14,7 +14,9 @@ void kod::Logger::stop()
 	m_state.store(kod::Logger::ThreadState::STOPPED);
 	m_cv.notify_all();
 	if (m_thread.joinable()) {
+
 		m_thread.join();
+
 	}
 }
 
@@ -26,7 +28,8 @@ void kod::Logger::setLogLevel(kod::Logger::LogSeverity lvl)
 	m_minLogLevel = lvl;
 }
 
-void kod::Logger::setFileNameMaxLenght(size_t fileNameMaxCharacter) { m_fileNameMaxCharacter = fileNameMaxCharacter; }
+void kod::Logger::setFileNameMaxLenght(size_t fileNameMaxCharacter) { 
+	m_fileNameMaxCharacter = fileNameMaxCharacter; }
 
 void kod::Logger::shouldLogToConsole(bool shouldLoogToConsole) { m_consolLog = shouldLoogToConsole; }
 
